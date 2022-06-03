@@ -54,13 +54,15 @@ export class BetterClient extends Client {
 			`${__dirname}/../commands/*/*{.ts,.js}`
 		);
 
+		console.log(`👨‍💻 Registering commands...`);
+
 		commandFiles.forEach(async (filePath) => {
 			const command: CommandType = await this.importFile(filePath);
 			if (!command.name) return;
 
 			this.commands.set(command.name, command);
 			slashCommands.push(command);
-			console.log(`✔ Pushed ${command.name} to the server!`);
+			console.log(`✔ "${command.name}" command refreshed successfully.`);
 		});
 
 		this.on("ready", () => {
