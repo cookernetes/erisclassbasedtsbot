@@ -1,9 +1,4 @@
-import Eris, {
-	ApplicationCommand,
-	Client,
-	ClientEvents,
-	Collection,
-} from "eris";
+import Eris, { Client, ClientEvents } from "eris";
 import glob from "glob";
 import { promisify } from "util";
 import { CommandType } from "../typings/Command";
@@ -16,12 +11,15 @@ export class BetterClient extends Client {
 	commands: Map<string, CommandType> = new Map();
 
 	constructor(token: string, botOptions: Eris.ClientOptions, guildID) {
-		super(token, botOptions);
+		super(`Bot ${token}`, botOptions);
+
 		this.botToken = token;
 		this.guildID = guildID;
 	}
 
 	async start() {
+		console.log("\n💿 Bot Starting...");
+
 		await this.registerModules();
 		await this.connect();
 	}
@@ -31,7 +29,7 @@ export class BetterClient extends Client {
 	}
 
 	async refreshCommands(commands: CommandType[]) {
-		// If there are commands in the guild that aren't in the commands array - remove them by name
+		// Remove commands in guild that are not supposed to be there
 		const guildCommands = await this.guilds.get(this.guildID).getCommands();
 		const guildCommandNames = guildCommands.map((command) => command.name);
 		const commandNames = commands.map((command) => command.name);

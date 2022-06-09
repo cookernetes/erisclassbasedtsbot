@@ -12,4 +12,6 @@ export const bot = new BetterClient(
 	guildID
 );
 
-bot.start();
+(async () => {
+	await bot.start();
+})();

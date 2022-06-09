@@ -17,8 +17,4 @@ export default new BEvent("interactionCreate", async (interaction) => {
 			client: bot,
 		});
 	}
-
-	if (interaction instanceof Eris.ComponentInteraction) {
-		interaction.deferUpdate(); // To stop nonsense update messages
-	}
 });

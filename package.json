@@ -16,8 +16,8 @@
 	"description": "",
 	"dependencies": {
 		"@types/glob": "^7.2.0",
-		"@types/node": "^16.11.6",
-		"eris": "^0.17.0",
+		"@types/node": "^17.0.40",
+		"eris": "DonovanDMC/eris#everything",
 		"glob": "^7.2.0",
 		"ts-node": "^10.8.0",
 		"ts-node-dev": "^2.0.0",
