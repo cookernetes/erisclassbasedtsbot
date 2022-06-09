@@ -44,25 +44,30 @@ export default new BCommand({
 		const message = await interaction.getOriginalMessage();
 
 		const collectorFilter: listenerFilterType = (i) => {
-			return i.message.id === message.id /* && i.channel.id === channel */;
+			return i.message.id === message.id;
 		};
 
 		const options: EmeraldComponentCollectorOptions = {
 			client: bot,
 			customID: "click_me",
 			filter: collectorFilter,
-			timeout: 3000,
+			timeout: 10000,
 			ogMessage: message,
 		};
 
 		const collector = new EmeraldComponentCollector(options);
 
-		const collectThem = async () => {
-			const press = await collector.awaitButton();
-			return [press];
+		const collectThem = async (num) => {
+			const collected: ComponentInteraction[] = [];
+
+			for (let i = 0; i < num; i++) {
+				collected.push(await collector.awaitButton());
+			}
+
+			return collected;
 		};
 
-		const collected = await collectThem();
+		const collected = await collectThem(2);
 
 		console.log(collected[0].id);
 

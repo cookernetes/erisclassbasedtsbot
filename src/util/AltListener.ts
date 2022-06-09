@@ -51,16 +51,20 @@ export default class EmeraldComponentCollector {
 		}
 		this.listening = true;
 
-		return new Promise((resolve, reject) => {
-			this.buttons[this.customID] = resolve;
+		try {
+			return new Promise((resolve, reject) => {
+				this.buttons[this.customID] = resolve;
 
-			setTimeout(() => {
-				if (!this.buttons[this.customID]) return;
+				setTimeout(() => {
+					if (!this.buttons[this.customID]) return;
 
-				delete this.buttons[this.customID];
-				reject(console.log("Timed out"));
-			}, this.timeout);
-		});
+					delete this.buttons[this.customID];
+					reject(console.log("Timed out"));
+				}, this.timeout);
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	}
 }
 
