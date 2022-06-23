@@ -13,10 +13,8 @@ import { bot } from "../..";
 import { BCommand } from "../../structures/Command";
 import EmeraldComponentCollector, {
 	EmeraldComponentCollectorOptions,
-} from "../../util/AltListener";
-import getButtonCollections, {
-	listenerFilterType,
-} from "../../util/AltListener";
+	type listenerFilterType,
+} from "../../util/Mainlistener";
 
 export default new BCommand({
 	name: "ping",
@@ -55,19 +53,23 @@ export default new BCommand({
 			ogMessage: message,
 		};
 
-		const collector = new EmeraldComponentCollector(options);
+		const collector: EmeraldComponentCollector = new EmeraldComponentCollector(
+			options
+		);
 
 		const collectThem = async (num) => {
 			const collected: ComponentInteraction[] = [];
 
 			for (let i = 0; i < num; i++) {
+				bot.setMaxListeners(bot.getMaxListeners() + 1);
 				collected.push(await collector.awaitButton());
+				bot.setMaxListeners(bot.getMaxListeners() - 1);
 			}
 
 			return collected;
 		};
 
-		const collected = await collectThem(2);
+		const collected = await collectThem(1);
 
 		console.log(collected[0].id);
 

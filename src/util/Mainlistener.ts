@@ -1,6 +1,12 @@
 //TODO: Make this support multiple clicks and not end on first click
 
-import Eris, { ComponentInteraction, Constants, Message, User } from "eris";
+import Eris, {
+	AnyInteractionGateway,
+	ComponentInteraction,
+	Constants,
+	Message,
+	User,
+} from "eris";
 import { BetterClient } from "../structures/Client";
 
 // Promise Resolver
@@ -46,25 +52,22 @@ export default class EmeraldComponentCollector {
 				interaction.acknowledge();
 
 				this.buttons[interaction.data.custom_id](interaction);
+
 				delete this.buttons[interaction.data.custom_id];
 			});
 		}
 		this.listening = true;
 
-		try {
-			return new Promise((resolve, reject) => {
-				this.buttons[this.customID] = resolve;
+		return new Promise((resolve, reject) => {
+			this.buttons[this.customID] = resolve;
 
-				setTimeout(() => {
-					if (!this.buttons[this.customID]) return;
+			setTimeout(() => {
+				if (!this.buttons[this.customID]) return;
 
-					delete this.buttons[this.customID];
-					reject(console.log("Timed out"));
-				}, this.timeout);
-			});
-		} catch (e) {
-			console.log(e);
-		}
+				delete this.buttons[this.customID];
+				reject(console.log("Timed out"));
+			}, this.timeout);
+		});
 	}
 }
 

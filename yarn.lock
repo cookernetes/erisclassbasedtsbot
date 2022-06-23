@@ -171,8 +171,8 @@ dynamic-dedupe@^0.3.0:
     xtend "^4.0.0"
 
 eris@DonovanDMC/eris#everything:
-  version "0.16.2-everything.e0b111e"
-  resolved "https://codeload.github.com/DonovanDMC/eris/tar.gz/00ea2b764771cdbbbd3772ec630af18241fe37a4"
+  version "0.17.1-everything.ad42f3d"
+  resolved "https://codeload.github.com/DonovanDMC/eris/tar.gz/e642f5ab441b7004050fa4b68ece35a6f9ab8581"
   dependencies:
     ws "^8.2.3"
   optionalDependencies:
