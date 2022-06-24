@@ -18,7 +18,6 @@ export class InteractionHandler extends EventEmitter {
 	ended: boolean;
 	collected: ComponentInteraction[];
 	listener: (interaction: ComponentInteraction) => Promise<boolean>;
-	permanent: boolean;
 
 	constructor(options: IOptions) {
 		super();
@@ -60,9 +59,7 @@ export class InteractionHandler extends EventEmitter {
 
 		this.ended = true;
 
-		if (!this.permanent) {
-			this.options.client.removeListener("interactionCreate", this.listener);
-		}
+		this.options.client.removeListener("interactionCreate", this.listener);
 
 		this.emit("end", this.collected, reason);
 	}
